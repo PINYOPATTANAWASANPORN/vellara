@@ -1,30 +1,42 @@
 <div align="center">
-  <img src="assets/logo.svg" alt="TrustMint — Real assets on Stellar" width="340" />
+  <img src="assets/logo.svg" alt="Vellara — Real assets on Stellar" width="340" />
 
   <h1>Real assets. Clear rules. Stellar Soroban.</h1>
 
   <p>Open-source building blocks for tokenized invoices, property shares, and carbon credits—with eligibility and transfer rules checked by smart contracts.</p>
 
   <p>
-    <a href="https://trustmint-x.vercel.app"><strong>Open the live preview</strong></a>
+    <a href="https://vellara-x.vercel.app"><strong>Open the live preview</strong></a>
     · <a href="#get-started">Get started</a>
-    · <a href="https://github.com/zeemscript/TrustMint/issues">Report an issue</a>
+    · <a href="https://github.com/Vellara-Labs/Vellara/issues">Report an issue</a>
   </p>
 
   <p>
-    <a href="https://github.com/zeemscript/TrustMint/actions/workflows/ci.yml"><img src="https://github.com/zeemscript/TrustMint/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+    <a href="https://github.com/Vellara-Labs/Vellara/actions/workflows/ci.yml"><img src="https://github.com/Vellara-Labs/Vellara/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-12A994.svg" alt="MIT License" /></a>
     <img src="https://img.shields.io/badge/chain-Stellar-102B35.svg" alt="Stellar" />
     <img src="https://img.shields.io/badge/contracts-Soroban-0D897E.svg" alt="Soroban" />
   </p>
 </div>
 
+## Table of Contents
+
+- [The idea](#the-idea)
+- [Explore the building blocks](#explore-the-building-blocks)
+- [How a policy check flows](#how-a-policy-check-flows)
+- [Get started](#get-started)
+- [Developer commands](#developer-commands)
+- [Repository map](#repository-map)
+- [Project roadmap](#project-roadmap)
+- [Community and project docs](#community-and-project-docs)
+- [Environment variables](#environment-variables)
+- [Security](#security)
 
 ## The idea
 
-Tokenizing an asset is only one part of the work. Applications may also need holder eligibility, transfer policies, and rules tied to an asset's lifecycle. TrustMint brings those examples together in one inspectable Stellar Soroban repository, so builders can explore the pieces and adapt them for their own testnet prototypes.
+Tokenizing an asset is only one part of the work. Applications may also need holder eligibility, transfer policies, and rules tied to an asset's lifecycle. Vellara brings those examples together in one inspectable Stellar Soroban repository, so builders can explore the pieces and adapt them for their own testnet prototypes.
 
-TrustMint does not verify identities or provide legal compliance. A trusted verifier records an approval decision on-chain; identity documents and the process behind that decision remain off-chain and under the deploying project's control.
+Vellara does not verify identities or provide legal compliance. A trusted verifier records an approval decision on-chain; identity documents and the process behind that decision remain off-chain and under the deploying project's control.
 
 ## Explore the building blocks
 
@@ -88,14 +100,16 @@ The interface can load without contract IDs. Network-backed workflows need the r
 The helper deploys the KYC registry, compliance engine, invoice token, property token, and carbon-credit token. It writes those IDs to `frontend/.env`. The separate RWA reference token is not included. The asset metadata in the script is placeholder data; review and replace it before every deployment, including testnet.
 
 ```bash
-bash scripts/setup-identity.sh trustmint-dev
-bash scripts/deploy.sh trustmint-dev
+bash scripts/setup-identity.sh vellara-dev
+bash scripts/deploy.sh vellara-dev
 ```
 
 ## Developer commands
 
 ```bash
 # Rust formatting, linting, and contract unit tests
+
+![Stellar](https://img.shields.io/badge/Stellar-Soroban-7D00FF?logo=stellar&logoColor=white)
 cargo fmt --all -- --check
 cargo clippy --all --all-targets -- -D warnings
 cargo test --features testutils
@@ -142,3 +156,22 @@ docs/               Deployment and operations guidance
 ---
 
 Built in the open for developers exploring real-world asset applications on Stellar.
+
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in your values (see the file for inline docs). Key groups:
+
+| Variable group | Key variables |
+| --- | --- |
+| Contract access | `STELLAR_RPC_URL` |
+
+## Security
+
+- **Never commit secrets** — keep keys, seed phrases, and `.env` files out of source control.
+- **Testnet values have no real-world value**; treat testnet deployments as experimental.
+- **Keys never leave the wallet** — signing is delegated to the user's Stellar wallet; the app does not store secret keys.
+- Report vulnerabilities per `SECURITY.md` where present rather than opening a public issue.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
